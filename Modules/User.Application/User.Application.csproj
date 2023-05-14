@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
+      <ProjectReference Include="..\Shared.Migrations\Shared.Migrations.csproj" />
+      <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
+      <ProjectReference Include="..\User.Infrastructure\User.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
