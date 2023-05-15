@@ -7,7 +7,7 @@ using User.Domain.Entities;
 
 namespace Shared.Migrations;
 
-public class ApplicationDbContext : IdentityDbContext, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<UserEntity, UserRoleEntity, Guid>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
