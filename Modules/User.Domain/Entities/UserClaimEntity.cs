@@ -10,5 +10,5 @@ public class UserClaimEntity : IdentityUserClaim<Guid>
     /// <summary>
     /// Role description
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }
