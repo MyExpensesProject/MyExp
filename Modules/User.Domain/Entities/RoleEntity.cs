@@ -5,7 +5,7 @@ namespace User.Domain.Entities;
 /// <summary>
 /// Role entity
 /// </summary>
-public class UserRoleEntity : IdentityRole<Guid>
+public class RoleEntity : IdentityRole<Guid>
 {
     /// <summary>
     /// Role description

@@ -7,7 +7,7 @@ using User.Domain.Entities;
 
 namespace Shared.Migrations;
 
-public class ApplicationDbContext : IdentityDbContext<UserEntity, UserRoleEntity, Guid>, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<UserEntity, RoleEntity, Guid>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -16,7 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, UserRoleEntity
     
     public DbSet<UserEntity> Users { get; set; }
     public DbSet<UserClaimEntity> UserClaims { get; set; }
-    public DbSet<UserRoleEntity> Roles { get; set; }
+    public DbSet<RoleEntity> Roles { get; set; }
     public DbSet<UserRolesEntity> UserRoles { get; set; }
     
     protected override void OnModelCreating(ModelBuilder builder)
@@ -35,7 +35,7 @@ public class ApplicationDbContext : IdentityDbContext<UserEntity, UserRoleEntity
             entity.ToTable(name: "Users");
         });
         
-        builder.Entity<UserRoleEntity>(entity =>
+        builder.Entity<RoleEntity>(entity =>
         {
             entity.ToTable(name: "Roles");
         });

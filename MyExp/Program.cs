@@ -14,7 +14,7 @@ var connectionString =
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddIdentity<UserEntity, UserRoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<UserEntity, RoleEntity>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
