@@ -6,9 +6,9 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.Migrations;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
-namespace User.Application.Queries
+namespace Users.Application.Queries
 {
     /// <summary>
     /// Query

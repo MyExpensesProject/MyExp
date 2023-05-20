@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Migrations;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

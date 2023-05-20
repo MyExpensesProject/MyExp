@@ -1,4 +1,4 @@
-namespace User.Application;
+namespace Users.Application;
 
 /// <summary>
 /// User app

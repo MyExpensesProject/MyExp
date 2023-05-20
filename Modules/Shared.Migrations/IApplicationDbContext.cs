@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace Shared.Migrations;
 

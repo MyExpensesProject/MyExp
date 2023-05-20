@@ -20,4 +20,9 @@
       <ProjectReference Include="..\Modules\Shared.Migrations\Shared.Migrations.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Expenses\Views\Expenses\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Users\Views\Users\Index.cshtml" />
+    </ItemGroup>
+
 </Project>

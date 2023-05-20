@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace User.Domain.Entities;
+namespace Users.Domain.Entities;
 
 /// <summary>
 /// Role entity
 /// </summary>
-public class RoleEntity : IdentityRole<Guid>
+public class UserClaimEntity : IdentityUserClaim<Guid>
 {
     /// <summary>
     /// Role description

@@ -3,7 +3,7 @@
  * Author: A.A.Konkin
 */
 
-namespace User.Domain.Dto;
+namespace Users.Domain.Dto;
 
 /// <summary>
 /// Sign up Dto

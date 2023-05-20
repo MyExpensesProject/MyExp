@@ -6,7 +6,7 @@
 using Microsoft.AspNetCore.Identity;
 using Shared.Core.Entities;
 
-namespace User.Domain.Entities;
+namespace Users.Domain.Entities;
 
 /// <summary>
 /// User entity

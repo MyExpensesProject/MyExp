@@ -9,8 +9,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Shared.Core\Shared.Core.csproj" />
       <ProjectReference Include="..\Shared.Migrations\Shared.Migrations.csproj" />
-      <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
-      <ProjectReference Include="..\User.Infrastructure\User.Infrastructure.csproj" />
+      <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
+      <ProjectReference Include="..\Users.Infrastructure\Users.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

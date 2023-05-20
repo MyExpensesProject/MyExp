@@ -4,7 +4,7 @@
 */
 
 #pragma warning disable CS8618
-namespace User.Domain.Dto;
+namespace Users.Domain.Dto;
 
 /// <summary>
 /// Sign in dto

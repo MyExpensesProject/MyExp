@@ -5,10 +5,10 @@
 
 using MediatR;
 using Shared.Migrations;
-using User.Domain.Dto;
-using User.Domain.Entities;
+using Users.Domain.Dto;
+using Users.Domain.Entities;
 
-namespace User.Application.Commands;
+namespace Users.Application.Commands;
 
 /// <summary>
 /// Command

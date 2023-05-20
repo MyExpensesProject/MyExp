@@ -130,7 +130,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("UserTokens", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.RoleEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.RoleEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +160,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("Roles", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,7 +249,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserClaimEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserClaimEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>");
 
@@ -259,7 +259,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("UserClaims", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserRolesEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserRolesEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
 
@@ -268,7 +268,7 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.RoleEntity", null)
+                    b.HasOne("Users.Domain.Entities.RoleEntity", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,7 +277,7 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -286,7 +286,7 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,13 +295,13 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.RoleEntity", null)
+                    b.HasOne("Users.Domain.Entities.RoleEntity", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -310,27 +310,27 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserClaimEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserClaimEntity", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", null)
                         .WithOne()
-                        .HasForeignKey("User.Domain.Entities.UserClaimEntity", "Id")
+                        .HasForeignKey("Users.Domain.Entities.UserClaimEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserRolesEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserRolesEntity", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", null)
                         .WithOne()
-                        .HasForeignKey("User.Domain.Entities.UserRolesEntity", "UserId", "RoleId")
+                        .HasForeignKey("Users.Domain.Entities.UserRolesEntity", "UserId", "RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

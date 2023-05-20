@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 #pragma warning disable CS8618
 #pragma warning disable CS0108, CS0114
 
