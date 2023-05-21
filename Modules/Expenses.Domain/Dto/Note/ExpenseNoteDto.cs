@@ -1,5 +1,4 @@
-﻿using Expenses.Domain.Entities.Note;
-using Shared.Core.Entities;
+﻿using Shared.Core.Entities;
 using Shared.Core.Enums;
 
 namespace Expenses.Domain.Dto.Note;

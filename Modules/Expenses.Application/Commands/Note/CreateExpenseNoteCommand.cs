@@ -12,35 +12,37 @@ using Shared.Migrations;
 
 namespace Expenses.Application.Commands.Note;
 
-public record CreateExpenseNotebookCommand(ExpenseNotebookDto Dto) : IRequest<ExpenseNotebookEntity>;
+public record CreateExpenseNoteCommand(ExpenseNoteDto Dto) : IRequest<ExpenseNoteEntity>;
 
-public class CreateExpenseNotebookCommandHandler : IRequestHandler<CreateExpenseNotebookCommand, ExpenseNotebookEntity>
+public class CreateExpenseNoteCommandHandler : IRequestHandler<CreateExpenseNoteCommand, ExpenseNoteEntity>
 {
     private readonly IApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CreateExpenseNotebookCommandHandler(IApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+    public CreateExpenseNoteCommandHandler(IApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<ExpenseNotebookEntity> Handle(CreateExpenseNotebookCommand command, CancellationToken cancellationToken)
+    public async Task<ExpenseNoteEntity> Handle(CreateExpenseNoteCommand command, CancellationToken cancellationToken)
     {
         if (command.Dto is null)
             throw new Exception();
         
         var userId = Guid.Parse(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var entity = new ExpenseNotebookEntity
+        var entity = new ExpenseNoteEntity
         {
             Id = Guid.NewGuid(),
-
-            UserId = userId,
-            Name = command.Dto.Name,
-            Description = command.Dto.Description,
-            ImagePath = command.Dto.ImagePath,
             
+            Date = command.Dto.Date,
+            ProductId = command.Dto.ProductId,
+            Amount = command.Dto.Amount,
+            Unit = command.Dto.Unit,
+            Quantity = command.Dto.Quantity,
+            ExpenseNotebookId = command.Dto.ExpenseNotebookId,
+
             CreatedById = userId,
             CreateDate = DateTime.Now,
             UpdateById = userId,
@@ -48,7 +50,7 @@ public class CreateExpenseNotebookCommandHandler : IRequestHandler<CreateExpense
             IsDeleted = false
         };
 
-        var result = await _context.ExpenseNotebooks.AddAsync(entity, cancellationToken);
+        var result = await _context.ExpenseNotes.AddAsync(entity, cancellationToken);
         await _context.SaveChangesAsync();
 
         return result.Entity;

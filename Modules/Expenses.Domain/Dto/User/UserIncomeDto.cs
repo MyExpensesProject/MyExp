@@ -21,7 +21,7 @@ public class UserIncomeDto : IBaseEntity
     /// <summary>
     /// Expense type
     /// </summary>
-    public IncomeType ExpenseType { get; set; }
+    public IncomeType IncomeType { get; set; }
     
     /// <summary>
     /// Amount

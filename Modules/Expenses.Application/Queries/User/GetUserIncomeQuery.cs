@@ -3,36 +3,36 @@
  * Author: A.A.Konkin
 */
 
-using Expenses.Application.Queries.Note;
+using Dapper;
+using Expenses.Domain.Dto.User;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shared.Migrations;
-using Users.Domain.Entities;
 
 namespace Expenses.Application.Queries.User
 {
     /// <summary>
     /// Query
     /// </summary>
-    public record GetUserIncomeQuery(string Email, string Password) : IRequest<UserEntity?>;
+    public record GetUserIncomeQuery(string Email, string Password) : IRequest<IEnumerable<UserIncomeDto>?>;
 
-    public class GetUserIncomeQueryHandler : IRequestHandler<GetExpenseNotebookQuery, UserEntity?>
+    public class GetUserIncomeQueryHandler : IRequestHandler<GetUserIncomeQuery, IEnumerable<UserIncomeDto>?>
     {
-        private readonly IApplicationDbContext _context;
+        private readonly IDapperContext _dapperContext;
 
-        public GetUserIncomeQueryHandler(IApplicationDbContext context)
+        public GetUserIncomeQueryHandler(IDapperContext dapperContext)
         {
-            _context = context;
+            _dapperContext = dapperContext;
         }
 
-        public async Task<UserEntity?> Handle(GetExpenseNotebookQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserIncomeDto>?> Handle(GetUserIncomeQuery query, CancellationToken cancellationToken)
         {
-            var data = await _context.Users.FirstOrDefaultAsync(d =>
-                    d.Email == query.Email
-                    && d.Password == query.Password,
-                cancellationToken: cancellationToken);
+            var builder = new SqlBuilder();
+            var template = builder.AddTemplate(@"SELECT /**select**/ FROM ""UserIncomes"" /**where**/ /**orderby**/");
 
-            return data;
+            builder.Select("*");
+            builder.OrderBy(@"""CreateDate"" desc");
+
+            return await _dapperContext.CreateConnection().QueryAsync<UserIncomeDto>(template.RawSql, template.Parameters);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Expenses.Domain.Entities;
-using Expenses.Domain.Entities.Note;
+﻿using Expenses.Domain.Entities.Note;
 using Microsoft.EntityFrameworkCore;
 
 namespace Shared.Migrations.Relationships;

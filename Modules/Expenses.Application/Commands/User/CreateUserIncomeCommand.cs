@@ -4,43 +4,42 @@
 */
 
 using System.Security.Claims;
-using Expenses.Domain.Dto.Note;
-using Expenses.Domain.Entities.Note;
+using Expenses.Domain.Dto.User;
+using Expenses.Domain.Entities.User;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Shared.Migrations;
 
-namespace Expenses.Application.Commands.Note;
+namespace Expenses.Application.Commands.User;
 
-public record CreateExpenseNotebookCommand(ExpenseNotebookDto Dto) : IRequest<ExpenseNotebookEntity>;
+public record CreateUserIncomeCommand(UserIncomeDto Dto) : IRequest<UserIncomeEntity>;
 
-public class CreateExpenseNotebookCommandHandler : IRequestHandler<CreateExpenseNotebookCommand, ExpenseNotebookEntity>
+public class CreateUserIncomeCommandHandler : IRequestHandler<CreateUserIncomeCommand, UserIncomeEntity>
 {
     private readonly IApplicationDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CreateExpenseNotebookCommandHandler(IApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+    public CreateUserIncomeCommandHandler(IApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<ExpenseNotebookEntity> Handle(CreateExpenseNotebookCommand command, CancellationToken cancellationToken)
+    public async Task<UserIncomeEntity> Handle(CreateUserIncomeCommand command, CancellationToken cancellationToken)
     {
         if (command.Dto is null)
             throw new Exception();
-        
+
         var userId = Guid.Parse(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var entity = new ExpenseNotebookEntity
+        var entity = new UserIncomeEntity
         {
             Id = Guid.NewGuid(),
 
             UserId = userId,
-            Name = command.Dto.Name,
-            Description = command.Dto.Description,
-            ImagePath = command.Dto.ImagePath,
-            
+            IncomeType = command.Dto.IncomeType,
+            Amount = command.Dto.Amount,
+
             CreatedById = userId,
             CreateDate = DateTime.Now,
             UpdateById = userId,
@@ -48,7 +47,7 @@ public class CreateExpenseNotebookCommandHandler : IRequestHandler<CreateExpense
             IsDeleted = false
         };
 
-        var result = await _context.ExpenseNotebooks.AddAsync(entity, cancellationToken);
+        var result = await _context.UserIncomes.AddAsync(entity, cancellationToken);
         await _context.SaveChangesAsync();
 
         return result.Entity;
