@@ -1,73 +1,133 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Expenses.Domain.Entities.Note;
+using Expenses.Domain.Entities.User;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Products.Domain.Entities;
+using Shared.Migrations.Relationships;
 using Users.Domain.Entities;
 #pragma warning disable CS8618
 #pragma warning disable CS0108, CS0114
 
 namespace Shared.Migrations;
 
+/// <summary>
+/// Application db context
+/// </summary>
 public class ApplicationDbContext : IdentityDbContext<UserEntity, RoleEntity, Guid>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
-    
+
+    /// <summary>
+    /// Users
+    /// </summary>
     public DbSet<UserEntity> Users { get; set; }
+
+    /// <summary>
+    /// User claims
+    /// </summary>
     public DbSet<UserClaimEntity> UserClaims { get; set; }
+
+    /// <summary>
+    /// Roles
+    /// </summary>
     public DbSet<RoleEntity> Roles { get; set; }
+
+    /// <summary>
+    /// User roles
+    /// </summary>
     public DbSet<UserRolesEntity> UserRoles { get; set; }
+
+    /// <summary>
+    /// Expenses notebooks
+    /// </summary>
+    public DbSet<ExpenseNotebookEntity> ExpenseNotebooks { get; set; }
+
+    /// <summary>
+    /// Expense notes
+    /// </summary>
+    public DbSet<ExpenseNoteEntity> ExpenseNotes { get; set; }
+
+    /// <summary>
+    /// Products
+    /// </summary>
+    public DbSet<ProductEntity> Products { get; set; }
     
-    protected override void OnModelCreating(ModelBuilder builder)
+    /// <summary>
+    /// User expenses
+    /// </summary>
+    public DbSet<UserExpensesEntity> UserExpenses { get; set; }
+    
+    /// <summary>
+    /// User incomes
+    /// </summary>
+    public DbSet<UserIncomeEntity> UserIncomes { get; set; }
+    
+    /// <summary>
+    /// Save changes async
+    /// </summary>
+    /// <param name="modelBuilder"> Model builder </param>
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        RenameIdentityTables(builder);
+        RenameIdentityTables(modelBuilder);
+        ConfigureRelationship.ConfigureRelationships(modelBuilder);
     }
 
-    private void RenameIdentityTables(ModelBuilder builder)
+    /// <summary>
+    /// Save changes async
+    /// </summary>
+    /// <returns> Changed entities number </returns>
+    public async Task<int> SaveChangesAsync()
     {
-        base.OnModelCreating(builder);
+        return await base.SaveChangesAsync();
+    }
+
+    /// <summary>
+    /// Rename default identity tables to custom names
+    /// </summary>
+    /// <param name="modelBuilder"> Model builder </param>
+    private void RenameIdentityTables(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
         
-        builder.HasDefaultSchema("public");
+        modelBuilder.HasDefaultSchema("public");
         
-        builder.Entity<UserEntity>(entity =>
+        modelBuilder.Entity<UserEntity>(entity =>
         {
             entity.ToTable(name: "Users");
         });
         
-        builder.Entity<RoleEntity>(entity =>
+        modelBuilder.Entity<RoleEntity>(entity =>
         {
             entity.ToTable(name: "Roles");
         });
         
-        builder.Entity<UserRolesEntity>(entity =>
+        modelBuilder.Entity<UserRolesEntity>(entity =>
         {
             entity.ToTable("UserRoles");
         });
         
-        builder.Entity<UserClaimEntity>(entity =>
+        modelBuilder.Entity<UserClaimEntity>(entity =>
         {
             entity.ToTable("UserClaims");
         });
         
-        builder.Entity<IdentityUserLogin<Guid>>(entity =>
+        modelBuilder.Entity<IdentityUserLogin<Guid>>(entity =>
         {
             entity.ToTable("UserLogins");
         });
         
-        builder.Entity<IdentityRoleClaim<Guid>>(entity =>
+        modelBuilder.Entity<IdentityRoleClaim<Guid>>(entity =>
         {
             entity.ToTable("RoleClaims");
         });
         
-        builder.Entity<IdentityUserToken<Guid>>(entity =>
+        modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
         {
             entity.ToTable("UserTokens");
         });
-    }
-    
-    public new async Task<int> SaveChanges()
-    {
-        return await base.SaveChangesAsync();
     }
 }

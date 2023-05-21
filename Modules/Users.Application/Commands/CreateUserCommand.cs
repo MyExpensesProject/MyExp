@@ -57,7 +57,7 @@ public class CreateUserCommand : IRequest<UserEntity>
             };
             
             var result = await _context.Users.AddAsync(entity, cancellationToken);
-            await _context.SaveChanges();
+            await _context.SaveChangesAsync();
                 
             return result.Entity;
         }
