@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Dto\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Expenses.Infrastructure\Expenses.Infrastructure.csproj" />
     </ItemGroup>
 

@@ -5,7 +5,7 @@ namespace Analytics.Domain.Entities;
 /// <summary>
 /// Total expense report entity
 /// </summary>
-public class TotalExpenseReport : IBaseEntity
+public class TotalExpenseReportEntity : IBaseEntity
 {
     /// <summary>
     /// Id

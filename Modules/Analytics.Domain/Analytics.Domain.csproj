@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Dto\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Analytics.Infrastructure\Analytics.Infrastructure.csproj" />
     </ItemGroup>
 
