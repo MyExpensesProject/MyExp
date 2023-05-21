@@ -9,7 +9,7 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account.Manage
 {
@@ -123,20 +123,18 @@ namespace MyExp.Areas.Identity.Pages.Account.Manage
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
             var userId = await _userManager.GetUserIdAsync(user);
-            _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app.", userId);
+            _logger.LogInformation("User with ID '{UserId}' has enabled 2FA with an authenticator app", userId);
 
             StatusMessage = "Your authenticator app has been verified.";
 
             if (await _userManager.CountRecoveryCodesAsync(user) == 0)
             {
                 var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
-                RecoveryCodes = recoveryCodes.ToArray();
+                RecoveryCodes = recoveryCodes!.ToArray();
                 return RedirectToPage("./ShowRecoveryCodes");
             }
-            else
-            {
-                return RedirectToPage("./TwoFactorAuthentication");
-            }
+
+            return RedirectToPage("./TwoFactorAuthentication");
         }
 
         private async Task LoadSharedKeyAndQrCodeUriAsync(UserEntity user)

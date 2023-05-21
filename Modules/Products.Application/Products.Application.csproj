@@ -7,13 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
       <ProjectReference Include="..\Products.Infrastructure\Products.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Mediator\Commands\" />
-      <Folder Include="Mediator\Queries\" />
+      <ProjectReference Include="..\Shared.Migrations\Shared.Migrations.csproj" />
     </ItemGroup>
 
 </Project>

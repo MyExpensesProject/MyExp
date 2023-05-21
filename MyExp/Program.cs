@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Migrations;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +19,6 @@ builder.Services.AddIdentity<UserEntity, RoleEntity>(options => options.SignIn.R
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -40,6 +32,12 @@ builder.Services.AddAuthentication(options =>
     });
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
 var app = builder.Build();
 

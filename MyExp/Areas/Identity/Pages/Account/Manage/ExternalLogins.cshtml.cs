@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account.Manage
 {
@@ -117,7 +117,7 @@ namespace MyExp.Areas.Identity.Pages.Account.Manage
             var info = await _signInManager.GetExternalLoginInfoAsync(userId);
             if (info == null)
             {
-                throw new InvalidOperationException($"Unexpected error occurred loading external login info.");
+                throw new InvalidOperationException("Unexpected error occurred loading external login info.");
             }
 
             var result = await _userManager.AddLoginAsync(user, info);

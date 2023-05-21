@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account
 {
@@ -17,12 +17,10 @@ namespace MyExp.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<UserEntity> _userManager;
-        private readonly IEmailSender _sender;
 
         public RegisterConfirmationModel(UserManager<UserEntity> userManager, IEmailSender sender)
         {
             _userManager = userManager;
-            _sender = sender;
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace MyExp.Areas.Identity.Pages.Account
                 EmailConfirmationUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                    values: new { area = "Identity", userId, code, returnUrl },
                     protocol: Request.Scheme);
             }
 

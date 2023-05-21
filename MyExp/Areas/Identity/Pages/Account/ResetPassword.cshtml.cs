@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account
 {
@@ -75,14 +75,12 @@ namespace MyExp.Areas.Identity.Pages.Account
             {
                 return BadRequest("A code must be supplied for password reset.");
             }
-            else
+
+            Input = new InputModel
             {
-                Input = new InputModel
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
-                };
-                return Page();
-            }
+                Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
+            };
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

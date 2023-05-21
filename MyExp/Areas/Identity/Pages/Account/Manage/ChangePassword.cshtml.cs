@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account.Manage
 {
@@ -116,7 +116,7 @@ namespace MyExp.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
+            _logger.LogInformation("User changed their password successfully");
             StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();

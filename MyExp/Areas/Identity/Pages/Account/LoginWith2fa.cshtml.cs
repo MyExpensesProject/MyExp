@@ -3,10 +3,10 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Identity;
-using User.Domain.Entities;
+using Users.Domain.Entities;
 
 namespace MyExp.Areas.Identity.Pages.Account
 {
@@ -76,7 +76,7 @@ namespace MyExp.Areas.Identity.Pages.Account
 
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException("Unable to load two-factor authentication user.");
             }
 
             ReturnUrl = returnUrl;
@@ -97,31 +97,30 @@ namespace MyExp.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+                throw new InvalidOperationException("Unable to load two-factor authentication user.");
             }
 
             var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
 
             var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, Input.RememberMachine);
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            await _userManager.GetUserIdAsync(user);
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa", user.Id);
                 return LocalRedirect(returnUrl);
             }
-            else if (result.IsLockedOut)
+
+            if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
+                _logger.LogWarning("User with ID '{UserId}' account locked out", user.Id);
                 return RedirectToPage("./Lockout");
             }
-            else
-            {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
-                return Page();
-            }
+
+            _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'", user.Id);
+            ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+            return Page();
         }
     }
 }
