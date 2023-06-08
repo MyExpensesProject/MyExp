@@ -9,15 +9,17 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Modules\Products.Application\Products.Application.csproj" />
       <ProjectReference Include="..\Modules\Shared.Migrations\Shared.Migrations.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Expenses\Views\Expenses\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Users\Views\Users\Index.cshtml" />
     </ItemGroup>
 
 </Project>

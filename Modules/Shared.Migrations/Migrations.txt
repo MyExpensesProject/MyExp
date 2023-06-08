@@ -1,0 +1,2 @@
+dotnet ef database update --startup-project MyExp --project Modules/Shared.Migrations/ --context ApplicationDbContext
+dotnet ef migration add MigrationName --startup-project MyExp --project Modules/Shared.Migrations/ --context ApplicationDbContext

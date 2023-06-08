@@ -23,6 +23,160 @@ namespace Shared.Migrations.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Expenses.Domain.Entities.Note.ExpenseNoteEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("ExpenseNotebookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Unit")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UpdateById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpenseNotebookId");
+
+                    b.ToTable("ExpenseNotes", "public");
+                });
+
+            modelBuilder.Entity("Expenses.Domain.Entities.Note.ExpenseNotebookEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UpdateById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpenseNotebooks", "public");
+                });
+
+            modelBuilder.Entity("Expenses.Domain.Entities.User.UserExpensesEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ExpenseType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UpdateById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserExpenses", "public");
+                });
+
+            modelBuilder.Entity("Expenses.Domain.Entities.User.UserIncomeEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("IncomeType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UpdateById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserIncomes", "public");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -130,7 +284,48 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("UserTokens", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.RoleEntity", b =>
+            modelBuilder.Entity("Products.Domain.Entities.ProductEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Unit")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UpdateById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products", "public");
+                });
+
+            modelBuilder.Entity("Users.Domain.Entities.RoleEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +355,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("Roles", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,7 +444,7 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserClaimEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserClaimEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>");
 
@@ -259,16 +454,27 @@ namespace Shared.Migrations.Migrations
                     b.ToTable("UserClaims", "public");
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserRolesEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserRolesEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
 
                     b.ToTable("UserRoles", "public");
                 });
 
+            modelBuilder.Entity("Expenses.Domain.Entities.Note.ExpenseNoteEntity", b =>
+                {
+                    b.HasOne("Expenses.Domain.Entities.Note.ExpenseNotebookEntity", "ExpenseNotebook")
+                        .WithMany("ExpenseNotes")
+                        .HasForeignKey("ExpenseNotebookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpenseNotebook");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.RoleEntity", null)
+                    b.HasOne("Users.Domain.Entities.RoleEntity", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,7 +483,7 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -286,7 +492,7 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,13 +501,13 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.RoleEntity", null)
+                    b.HasOne("Users.Domain.Entities.RoleEntity", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -310,29 +516,34 @@ namespace Shared.Migrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("User.Domain.Entities.UserEntity", null)
+                    b.HasOne("Users.Domain.Entities.UserEntity", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserClaimEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserClaimEntity", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", null)
                         .WithOne()
-                        .HasForeignKey("User.Domain.Entities.UserClaimEntity", "Id")
+                        .HasForeignKey("Users.Domain.Entities.UserClaimEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("User.Domain.Entities.UserRolesEntity", b =>
+            modelBuilder.Entity("Users.Domain.Entities.UserRolesEntity", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", null)
                         .WithOne()
-                        .HasForeignKey("User.Domain.Entities.UserRolesEntity", "UserId", "RoleId")
+                        .HasForeignKey("Users.Domain.Entities.UserRolesEntity", "UserId", "RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Expenses.Domain.Entities.Note.ExpenseNotebookEntity", b =>
+                {
+                    b.Navigation("ExpenseNotes");
                 });
 #pragma warning restore 612, 618
         }
