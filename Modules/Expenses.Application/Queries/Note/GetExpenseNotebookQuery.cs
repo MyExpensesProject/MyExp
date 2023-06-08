@@ -3,35 +3,39 @@
  * Author: A.A.Konkin
 */
 
+using Dapper;
+using Expenses.Domain.Dto.Note;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Shared.Migrations;
-using Users.Domain.Entities;
 
-namespace Expenses.Application.Queries.Note
+namespace Expenses.Application.Queries.Note;
+
+public record GetExpenseNotebookQuery(
+    string Email,
+    string Password
+) : IRequest<IEnumerable<ExpenseNotebookDto>?>;
+
+public class GetExpenseNotebookQueryHandler : IRequestHandler<GetExpenseNotebookQuery, IEnumerable<ExpenseNotebookDto>?>
 {
-    /// <summary>
-    /// Query
-    /// </summary>
-    public record GetExpenseNotebookQuery(string Email, string Password) : IRequest<UserEntity?>;
+    private readonly IDapperContext _dapperContext;
 
-    public class GGetExpenseNotebookQueryHandler : IRequestHandler<GetExpenseNotebookQuery, UserEntity?>
+    public GetExpenseNotebookQueryHandler(IDapperContext dapperContext)
     {
-        private readonly IApplicationDbContext _context;
+        _dapperContext = dapperContext;
+    }
 
-        public GGetExpenseNotebookQueryHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<IEnumerable<ExpenseNotebookDto>?> Handle(GetExpenseNotebookQuery query,
+        CancellationToken cancellationToken)
+    {
+        var builder = new SqlBuilder();
+        var template = builder.AddTemplate(@"SELECT /**select**/ FROM ""ExpenseNotes"" /**where**/ /**orderby**/");
 
-        public async Task<UserEntity?> Handle(GetExpenseNotebookQuery query, CancellationToken cancellationToken)
-        {
-            var data = await _context.Users.FirstOrDefaultAsync(d =>
-                    d.Email == query.Email
-                    && d.Password == query.Password,
-                cancellationToken: cancellationToken);
+        builder
+            .Select("*")
+            .Where(@"")
+            .OrderBy(@"""CreateDate"" desc");
 
-            return data;
-        }
+        return await _dapperContext.CreateConnection()
+            .QueryAsync<ExpenseNotebookDto>(template.RawSql, template.Parameters);
     }
 }
